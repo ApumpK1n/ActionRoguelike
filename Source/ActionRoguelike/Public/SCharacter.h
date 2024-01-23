@@ -5,11 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 #include "SCharacter.generated.h"
 
-
-//class UCameraComponent;
 
 UCLASS()
 class ACTIONROGUELIKE_API ASCharacter : public ACharacter
@@ -22,7 +21,11 @@ public:
 
 protected:
 
-	UCameraComponent* CameraComp;
+    UPROPERTY(VisibleAnywhere)
+    USpringArmComponent* SpringArmComponent;
+
+    UPROPERTY(VisibleAnywhere)
+	UCameraComponent* CameraComponent;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
