@@ -26,12 +26,22 @@ void ASCharacter::BeginPlay()
 
 void ASCharacter::MoveForward(float value)
 {
-    AddMovementInput(GetActorForwardVector(), value);
+    FRotator ControlRot = GetControlRotation();
+    // 转向只关注水平Yaw方向，因此置0防止影响
+    ControlRot.Pitch = 0;
+    ControlRot.Roll = 0;
+    // 获取相机（鼠标控制器）的朝向，并朝这个方向移动
+    AddMovementInput(ControlRot.Vector(), value);
 }
 
 void ASCharacter::MoveRight(float value)
 {
-    AddMovementInput(GetActorRightVector(), value);
+    FRotator ControlRot = GetControlRotation();
+    ControlRot.Pitch = 0;
+    ControlRot.Roll = 0;
+    // 获取相机（鼠标控制器）的朝向，转向右侧，并朝这个方向移动；传入的Y表示右侧
+    FVector RightVector = FRotationMatrix(ControlRot).GetScaledAxis(EAxis::Y);
+    AddMovementInput(RightVector, value);
 }
 
 // Called every frame
