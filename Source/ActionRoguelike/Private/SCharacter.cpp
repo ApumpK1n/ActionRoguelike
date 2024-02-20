@@ -53,7 +53,7 @@ void ASCharacter::PrimaryAttack() {
 
     // Spawn Transform Matrix， spawn的变换矩阵
     // 朝向角色方向
-    FTransform SpawnTM = FTransform(GetActorRotation(), GetActorLocation());
+    FTransform SpawnTM = FTransform(GetActorRotation(), RightHandLoc);//GetActorLocation());
 
     // 参数设置。
     // 此处设置碰撞检测规则为：即使碰撞也总是生成，因为粒子在角色中间生成必然碰撞
@@ -63,7 +63,7 @@ void ASCharacter::PrimaryAttack() {
     // 所有能放置或生成的对象都是Actor
     GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, TEXT("This message will appear on the screen!"));
+    //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, TEXT("The vector value is: %s"), *SpawnTM.GetLocation().ToString());
 }
 
 // Called every frame
