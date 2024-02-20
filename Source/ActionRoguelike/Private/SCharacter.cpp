@@ -44,6 +44,28 @@ void ASCharacter::MoveRight(float value)
     AddMovementInput(RightVector, value);
 }
 
+
+void ASCharacter::PrimaryAttack() {
+
+    // 获取模型右手位置
+    FVector RightHandLoc = GetMesh()->GetSocketLocation("ik_hand_r");
+
+
+    // Spawn Transform Matrix， spawn的变换矩阵
+    // 朝向角色方向
+    FTransform SpawnTM = FTransform(GetActorRotation(), GetActorLocation());
+
+    // 参数设置。
+    // 此处设置碰撞检测规则为：即使碰撞也总是生成，因为粒子在角色中间生成必然碰撞
+    FActorSpawnParameters SpawnParams;
+    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+    // 所有能放置或生成的对象都是Actor
+    GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+
+    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, TEXT("This message will appear on the screen!"));
+}
+
 // Called every frame
 void ASCharacter::Tick(float DeltaTime)
 {
@@ -61,5 +83,8 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
     PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
     PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+
+
+    PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASCharacter::PrimaryAttack);
 }
 
