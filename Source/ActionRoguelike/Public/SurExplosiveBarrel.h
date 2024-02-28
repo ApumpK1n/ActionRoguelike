@@ -21,6 +21,7 @@ protected:
     UPROPERTY(VisibleAnywhere)
     UStaticMeshComponent* MeshComp;
 
+    UPROPERTY(VisibleAnywhere)
     UBoxComponent* BoxComp;
 
     UPROPERTY(VisibleAnywhere)
@@ -35,5 +36,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+    UFUNCTION()
+    void HitFunction(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 };

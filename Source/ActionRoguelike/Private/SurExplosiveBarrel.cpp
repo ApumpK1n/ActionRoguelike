@@ -2,6 +2,7 @@
 
 
 #include "SurExplosiveBarrel.h"
+#include "SurMagicProjectile.h"
 
 // Sets default values
 ASurExplosiveBarrel::ASurExplosiveBarrel()
@@ -22,13 +23,17 @@ ASurExplosiveBarrel::ASurExplosiveBarrel()
     ForceComp->Radius = 750.0f;			 // 爆炸范围
     ForceComp->ImpulseStrength = 700.0f; // 冲击力
     ForceComp->bImpulseVelChange = true; // 忽略质量大小；见UE中ForceComp的“冲量速度变更”
+
+    BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComponent"));
+    BoxComp->SetupAttachment(MeshComp);
 }
 
 // Called when the game starts or when spawned
 void ASurExplosiveBarrel::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+    BoxComp->OnComponentHit.AddDynamic(this, &ASurExplosiveBarrel::HitFunction);
 }
 
 // Called every frame
@@ -40,6 +45,18 @@ void ASurExplosiveBarrel::Tick(float DeltaTime)
 
 void ASurExplosiveBarrel::OnActorHit()
 {
-    ForceComp->FireImpulse();
+    
+}
+
+void ASurExplosiveBarrel::HitFunction(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+    if (OtherActor && OtherActor->IsA(ASurMagicProjectile::StaticClass()))
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("HitFunction ！！")));
+        ForceComp->FireImpulse();
+
+        ASurMagicProjectile* projectile = Cast<ASurMagicProjectile>(OtherActor);
+        projectile->Destroy();
+    }
 }
 
