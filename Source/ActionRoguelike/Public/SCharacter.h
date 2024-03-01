@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "SurInteractionComponent.h"
 
 #include "SCharacter.generated.h"
 
@@ -30,6 +31,9 @@ protected:
     UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComponent;
 
+    UPROPERTY(VisibleAnywhere)
+    USurInteractionComponent* InteractionComp;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -38,6 +42,7 @@ protected:
     void MoveRight(float value);
 
     void PrimaryAttack();
+    void PrimaryInteract();
 
 public:
 	// Called every frame

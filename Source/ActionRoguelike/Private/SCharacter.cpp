@@ -15,6 +15,8 @@ ASCharacter::ASCharacter()
 
     CameraComponent = CreateDefaultSubobject<UCameraComponent>("CameraComponent");
     CameraComponent->SetupAttachment(SpringArmComponent);
+
+    InteractionComp = CreateDefaultSubobject<USurInteractionComponent>("InteractionComp");
 }
 
 // Called when the game starts or when spawned
@@ -66,6 +68,12 @@ void ASCharacter::PrimaryAttack() {
     //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, TEXT("The vector value is: %s"), *SpawnTM.GetLocation().ToString());
 }
 
+void ASCharacter::PrimaryInteract()
+{
+    InteractionComp->PrimaryInteract();
+}
+
+
 // Called every frame
 void ASCharacter::Tick(float DeltaTime)
 {
@@ -87,5 +95,8 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
     PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASCharacter::PrimaryAttack);
     PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+
+    // 交互
+    PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &ASCharacter::PrimaryInteract);
 }
 
