@@ -66,6 +66,9 @@ void ASCharacter::PrimaryAttack() {
     GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 
     //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, TEXT("The vector value is: %s"), *SpawnTM.GetLocation().ToString());
+
+
+    PlayAnimMontage(AttackAnim);
 }
 
 void ASCharacter::PrimaryInteract()

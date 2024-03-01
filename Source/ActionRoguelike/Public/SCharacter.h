@@ -22,8 +22,12 @@ public:
 
 protected:
     // 投射体子类
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Attack")
     TSubclassOf<AActor> ProjectileClass;
+
+
+    UPROPERTY(EditAnywhere, Category = "Attack")
+    UAnimMontage* AttackAnim;
 
     UPROPERTY(VisibleAnywhere)
     USpringArmComponent* SpringArmComponent;
