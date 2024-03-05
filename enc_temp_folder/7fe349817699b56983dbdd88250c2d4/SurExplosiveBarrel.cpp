@@ -55,8 +55,8 @@ void ASurExplosiveBarrel::HitFunction(UPrimitiveComponent* HitComponent, AActor*
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("HitFunction ！！")));
         ForceComp->FireImpulse();
 
-        //ASurMagicProjectile* projectile = Cast<ASurMagicProjectile>(OtherActor);
-        //projectile->Destroy();
+        ASurMagicProjectile* projectile = Cast<ASurMagicProjectile>(OtherActor);
+        projectile->Destroy();
     }
 }
 
