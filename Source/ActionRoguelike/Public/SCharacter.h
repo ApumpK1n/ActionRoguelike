@@ -7,8 +7,10 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "SurInteractionComponent.h"
+#include "SAttributeComponent.h"
 
 #include "SCharacter.generated.h"
+
 
 
 UCLASS()
@@ -40,6 +42,9 @@ protected:
 
     UPROPERTY(VisibleAnywhere)
     USurInteractionComponent* InteractionComp;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    USAttributeComponent* AttributeComponent;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

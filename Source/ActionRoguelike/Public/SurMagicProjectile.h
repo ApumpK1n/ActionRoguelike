@@ -37,4 +37,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+    UFUNCTION()
+    void OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
 };

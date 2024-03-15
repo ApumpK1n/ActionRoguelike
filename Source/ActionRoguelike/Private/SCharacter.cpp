@@ -17,6 +17,8 @@ ASCharacter::ASCharacter()
     CameraComponent->SetupAttachment(SpringArmComponent);
 
     InteractionComp = CreateDefaultSubobject<USurInteractionComponent>("InteractionComp");
+
+    AttributeComponent = CreateDefaultSubobject<USAttributeComponent>("AttributeComponent");
 }
 
 // Called when the game starts or when spawned
