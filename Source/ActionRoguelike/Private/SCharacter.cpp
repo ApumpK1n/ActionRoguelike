@@ -64,7 +64,7 @@ void ASCharacter::PrimaryAttack() {
     SpawnParams.Instigator = this;
 
     // 所有能放置或生成的对象都是Actor
-    GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+    SpawnProjectile(ProjectileClass, SpawnTM, SpawnParams);
 
     //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, TEXT("The vector value is: %s"), *SpawnTM.GetLocation().ToString());
 
@@ -76,6 +76,38 @@ void ASCharacter::PrimaryInteract()
     InteractionComp->PrimaryInteract();
 }
 
+void ASCharacter::BlackHoleAttack()
+{
+    // 获取模型右手位置
+    FVector RightHandLoc = GetMesh()->GetSocketLocation("ik_hand_r");
+
+
+    // Spawn Transform Matrix， spawn的变换矩阵
+    // 朝向角色方向
+    FTransform SpawnTM = FTransform(GetActorRotation(), RightHandLoc);//GetActorLocation());
+
+    // 参数设置。
+    // 此处设置碰撞检测规则为：即使碰撞也总是生成，因为粒子在角色中间生成必然碰撞
+    FActorSpawnParameters SpawnParams;
+    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    SpawnParams.Instigator = this;
+
+    // 所有能放置或生成的对象都是Actor
+    SpawnProjectile(BlackHoleProjectileClass, SpawnTM, SpawnParams);
+
+    //GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, TEXT("The vector value is: %s"), *SpawnTM.GetLocation().ToString());
+
+    PlayAnimMontage(AttackAnim);
+}
+
+
+void ASCharacter::SpawnProjectile(TSubclassOf<AActor> ClassToSpawn, FTransform SpawnTM, FActorSpawnParameters SpawnParams)
+{
+    if (ensureAlways(ClassToSpawn)) {
+
+        GetWorld()->SpawnActor<AActor>(ClassToSpawn, SpawnTM, SpawnParams);
+    }
+}
 
 // Called every frame
 void ASCharacter::Tick(float DeltaTime)
@@ -101,5 +133,8 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
     // 交互
     PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &ASCharacter::PrimaryInteract);
+
+    // 技能
+    PlayerInputComponent->BindAction("Skill1", IE_Pressed, this, &ASCharacter::BlackHoleAttack);
 }
 

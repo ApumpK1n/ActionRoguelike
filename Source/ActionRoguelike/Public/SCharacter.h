@@ -25,9 +25,12 @@ protected:
     UPROPERTY(EditAnywhere, Category = "Attack")
     TSubclassOf<AActor> ProjectileClass;
 
-
     UPROPERTY(EditAnywhere, Category = "Attack")
     UAnimMontage* AttackAnim;
+
+    // 黑洞投射体子类
+    UPROPERTY(EditAnywhere, Category = "Attack")
+    TSubclassOf<AActor> BlackHoleProjectileClass;
 
     UPROPERTY(VisibleAnywhere)
     USpringArmComponent* SpringArmComponent;
@@ -47,6 +50,10 @@ protected:
 
     void PrimaryAttack();
     void PrimaryInteract();
+
+    void BlackHoleAttack();
+
+    void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn, FTransform SpawnTM, FActorSpawnParameters SpawnParams);
 
 public:
 	// Called every frame
