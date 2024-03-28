@@ -8,6 +8,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "SurInteractionComponent.h"
 #include "SAttributeComponent.h"
+#include "Components/WidgetComponent.h"
 
 #include "SCharacter.generated.h"
 
@@ -45,6 +46,10 @@ protected:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
     USAttributeComponent* AttributeComponent;
+
+
+    UPROPERTY(VisibleAnywhere, Category = "Components")
+    UWidgetComponent* HealthWidgetComponent;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

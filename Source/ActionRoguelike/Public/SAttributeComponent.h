@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Components/WidgetComponent.h"
 #include "SAttributeComponent.generated.h"
 
 
@@ -20,6 +21,10 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Attributes")
     float Health;
+
+    //血条蓝图
+    //UPROPERTY(EditAnywhere, Category = "Attributes")
+    //TSubclassOf<UUserWidget> HealthBlueprintClass;
 
 	// Called when the game starts
 	virtual void BeginPlay() override;

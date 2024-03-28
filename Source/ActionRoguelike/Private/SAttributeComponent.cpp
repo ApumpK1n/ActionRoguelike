@@ -2,6 +2,7 @@
 
 
 #include "SAttributeComponent.h"
+#include "Components/WidgetComponent.h"
 
 // Sets default values for this component's properties
 USAttributeComponent::USAttributeComponent()
@@ -9,14 +10,11 @@ USAttributeComponent::USAttributeComponent()
     Health = 100;
 }
 
-
 // Called when the game starts
 void USAttributeComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
 	// ...
-	
 }
 
 
