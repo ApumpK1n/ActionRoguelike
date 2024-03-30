@@ -38,7 +38,8 @@ void ASurMagicProjectile::OnActorHit(UPrimitiveComponent* HitComponent, AActor* 
         USAttributeComponent* AttributeComponent = Cast<USAttributeComponent>(OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()));
         if (AttributeComponent)
         {
-            AttributeComponent->ApplyHealthChange(-10);
+            UWidgetComponent* HealthWidgetComponent = Cast<UWidgetComponent>(OtherActor->GetComponentByClass(UWidgetComponent::StaticClass()));
+            AttributeComponent->ApplyHealthChange(-10, HealthWidgetComponent);
            // Destroy();
         }
     }

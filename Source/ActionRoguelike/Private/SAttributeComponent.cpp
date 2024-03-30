@@ -3,6 +3,7 @@
 
 #include "SAttributeComponent.h"
 #include "Components/WidgetComponent.h"
+#include "Components/ProgressBar.h"
 
 // Sets default values for this component's properties
 USAttributeComponent::USAttributeComponent()
@@ -18,9 +19,14 @@ void USAttributeComponent::BeginPlay()
 }
 
 
-bool USAttributeComponent::ApplyHealthChange(float delta)
+bool USAttributeComponent::ApplyHealthChange(float delta, UWidgetComponent* HealthWidget)
 {
     Health += delta;
+    UUserWidget* UUserWidget = HealthWidget->GetUserWidgetObject();
+    
+    UProgressBar* ProgressBar = Cast<UProgressBar>(UUserWidget->GetWidgetFromName("Health"));
+    float health = Health / 100.0;
+    ProgressBar->SetPercent(health);
     return true;
 }
 

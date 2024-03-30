@@ -32,5 +32,5 @@ protected:
 public:
 
     UFUNCTION(BlueprintCallable, Category = "Attributes")
-    bool ApplyHealthChange(float delta);
+    bool ApplyHealthChange(float delta, UWidgetComponent* HealthWidget);
 };
